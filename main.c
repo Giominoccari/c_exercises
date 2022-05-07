@@ -24,6 +24,6 @@ int main() {
     casella table[62];
     genera_partita(testa, coda, table);
     gioca_partita(testa, coda, table);
-    return 0;
+    return 1;
+
 }
-genera_partita()
