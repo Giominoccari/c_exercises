@@ -21,36 +21,45 @@ void main() {
 		MOV posizionilen, 0
 		XOR EBX, EBX
 		XOR EDX, EDX
-uno:    CMP ECX, luns1
+
+
+uno:            CMP ECX, luns1
 		JG fine
 		CMP EAX, luns2
 		JNG restart
 		XOR EAX, EAX
-restart:MOV BH, s1[ECX]
+
+restart:        MOV BH, s1[ECX]
 		CMP BH, s2[EAX]
 		XOR EBX, EBX
 		JE due
 		JNE tre
-due:    CMP EAX, 0
+
+due:            CMP EAX, 0
 		JNE duedue
 		MOV posizioni[EDX], ECX
-        INC ECX
+                INC ECX
 		INC EAX
 		JMP uno
-duedue:	CMP EAX, luns2
+
+duedue:	        CMP EAX, luns2
 		JNE duetre
 		INC ECX
-		INC EAX
-		JMP uno
-duetre: XOR EAX, EAX
-		INC ECX
 		INC EDX
+		XOR EAX, EAX
+		JMP uno
+
+duetre:         INC EAX
+		INC ECX
 		INC posizionilen
 		JMP uno
-tre:    XOR EAX, EAX
+
+tre:            XOR EAX, EAX
 		INC ECX
-        JMP uno
-fine:   MOV posizionilen, EBX
+                JMP uno
+
+
+fine:           MOV posizionilen, EBX
 	}
 	printf("{");
 	for (unsigned int i = 0; i < posizionilen; i++) {
