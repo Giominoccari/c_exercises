@@ -4,9 +4,9 @@ void main() {
 
 #define MAX_LEN 100
 
-	char s1[] = "ciao ciao ciak";
+	char s1[] = "";
 	unsigned int luns1 = sizeof(s1) - 1;
-	char s2[] = "ciao";
+	char s2[] = "";
 	unsigned int luns2 = sizeof(s2) - 1;
 	unsigned int posizioni[MAX_LEN];
 	unsigned int posizionilen;
@@ -38,7 +38,7 @@ void main() {
 		due : XOR EBX, EBX
 		CMP EAX, 0
 		JNE duedue
-		MOV posizioni[EDX], ECX
+		MOV posizioni[EDX*4], ECX
 		INC ECX
 		INC EAX
 		JMP uno
@@ -61,7 +61,7 @@ void main() {
 		JMP uno
 
 
-		fine : 
+		fine :
 	}
 	printf("posizionilen=%d", posizionilen);
 	printf("{");
