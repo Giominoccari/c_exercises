@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+void main() {
+
+	unsigned int numero = 24;
+	unsigned int divisori[100];
+	int numdiv;
+
+	__asm {
+		MOV EAX, numero
+		MOV ECX, 2
+		MOV numdiv, 0
+		MOV EDX, 0
+		XOR EBX, EBX
+
+		uno:CMP EAX, ECX
+		JNGE fine
+		CMP EAX, ECX
+		JE primo
+		DIV ECX
+		CMP EDX, 0
+		JE primo
+		INC ECX
+		JMP uno
+
+		primo:MOV divisori[EBX*4], ECX
+		INC numdiv
+		INC EBX
+		JMP uno
+
+		fine:
+	}
+	printf("numero di divisori=%d\n", numdiv);
+	for (int i = 0; i < numdiv; i++) {
+		printf("%d\n", divisori[i]);
+	}
