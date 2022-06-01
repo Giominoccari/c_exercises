@@ -1,64 +1,57 @@
 #include <stdio.h>
 
 void main() {
-	unsigned int numero = 0x00300001 ;
+	unsigned int numero = ;
 	int numzeri;
 	int numuni;
 
 	__asm {
-		XOR EAX, EAX
-		XOR ECX, ECX
-		XOR EDX, EDX
+		MOV EAX, numero
 		XOR EBX, EBX
+		XOR EDX, EDX
 		XOR ECX, ECX
 
-		CMP numero[ECX], 0
-		JE start1
-		JNE start0
 
-		start1:MOV EBX, 1
-		MOV EDX, 1
-		XCHG EDX, numuni
-	
-
-		start0: MOV EBX, 0
-		MOV EDX, 1
-		XCHG EDX, numzeri
-		
-
-		XOR EDX, EDX
-
-		uno:CMP EDX, 31
+		uno:
+		CMP EAX, 32
 		JE fine
+		SAR numero, 1
+		JNC zeri
+		JC uni
+
+		zeri: 
+		CMP EBX, 0
+		JNE nonprimo
+		MOV EDX, 1
+		MOV EBX, 2
+		nonprimo: CMP EBX, 1
+		JNE nuovaseq1
 		INC EDX
-		CMP numero[ECX], 0
-		JE zeri
-		JNE uni
-
-		zeri:CMP EBX, 0
-		JNE change1
-		INC ECX
-		INC numzeri
 		JMP uno
-		change1: MOV numzeri, 1
-		XOR EBX, EBX
-		INC ECX
+		nuovaseq1: CMP numuni, EDX
+		JG minore
+		MOV numzeri, EDX
+		minore:MOV EDX, 1
 		JMP uno
 
-		uni:CMP EBX, 1
-		JNE change2
+		uni:
+		CMP EBX, 0
+		JNE nonprimo
+		MOV ECX, 1
+		MOV EBX, 2
+		nonprimo: CMP EBX,2
+		JNE nuovaseq2
 		INC ECX
-		INC numuni
 		JMP uno
-		change2: MOV numuni, 1
-		MOV EBX, 1
-		INC ECX
+		nuovaseq2: CMP numzeri, ECX
+		JG minore2
+		MOV numzeri, ECX
+		minore2: MOV ECX, 1
 		JMP uno
 
 		fine:
 
-
 	}
-	printf("la sequenza più lunga di bit contigui a 1 è pari a:%d\n", numuni);
-	printf("la sequenza più lunga di bit contigui a 0 è pari a:%d\n", numzeri);
+	printf("la sequenza piu lunga di bit contigui a 0 e pari a:%d\n", numzeri);
+	printf("la sequenza piu lunga di bit contigui a 1 e pari a:%d\n", numuni);
 }
